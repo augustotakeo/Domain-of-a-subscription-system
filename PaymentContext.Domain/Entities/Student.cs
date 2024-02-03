@@ -1,9 +1,12 @@
 namespace PaymentContext.Domain.Entities;
 
-public class Student {
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Document { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public List<Subscription> Subscriptions { get; set; } = null!;
+public class Student(string firstName, string lastName, string document, string email)
+{
+    private readonly IList<Subscription> _subscriptions = [];
+
+    public string FirstName { get; private set; } = firstName;
+    public string LastName { get; private set; } = lastName;
+    public string Document { get; private set; } = document;
+    public string Email { get; private set; } = email;
+    public IReadOnlyList<Subscription> Subscriptions { get => [.._subscriptions]; }
 }

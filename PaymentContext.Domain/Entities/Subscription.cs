@@ -1,9 +1,13 @@
+using System.Collections.Immutable;
+
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription {
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdateAt { get; set; }
-    public DateTime? ExpiresAt { get; set; }
-    private bool Active { get; set; }
-    public List<Payment> Payments { get; set; } = null!;
+public class Subscription(DateTime? expiresAt, bool active)
+{
+    private  readonly IList<Payment> _payments = [];
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+    public DateTime UpdateAt { get; private set; } = DateTime.UtcNow;
+    public DateTime? ExpiresAt { get; private set; } = expiresAt;
+    public bool Active { get; private set; } = active;
+    public IReadOnlyList<Payment> Payments { get => [.._payments]; }
 }

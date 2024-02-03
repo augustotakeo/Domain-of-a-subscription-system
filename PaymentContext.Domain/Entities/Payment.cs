@@ -1,12 +1,11 @@
 namespace PaymentContext.Domain.Entities;
 
-public abstract class Payment {
-    public string Number { get; set; } = null!;
-    public DateTime PaidAt { get; set; }
-    public DateTime ExpiresAt { get; set; }
-    public decimal Total { get; set; }
-    public decimal TotalPaid { get; set; }
-    public string Payer { get; set; } = null!;
-    public string Address { get; set; } = null!;
-    public string Document { get; set; } = null!;
+public abstract class Payment(decimal total, decimal totalPaid, string payer, string document) {
+    public string Number { get; private set; } = Guid.NewGuid().ToString().Replace("-", string.Empty)[..10];
+    public DateTime PaidAt { get; private set; } = DateTime.UtcNow;
+    public DateTime ExpiresAt { get; private set; } = DateTime.UtcNow;
+    public decimal Total { get; private set; } = total;
+    public decimal TotalPaid { get; private set; } = totalPaid;
+    public string Payer { get; private set; } = payer;
+    public string Document { get; private set; } = document;
 }
