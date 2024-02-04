@@ -1,6 +1,8 @@
+using PaymentContext.Shared.Entities;
+
 namespace PaymentContext.Domain.Entities;
 
-public class Student(string firstName, string lastName, string document, string email)
+public class Student(string firstName, string lastName, string document, string email) : Entity
 {
     private readonly IList<Subscription> _subscriptions = [];
 

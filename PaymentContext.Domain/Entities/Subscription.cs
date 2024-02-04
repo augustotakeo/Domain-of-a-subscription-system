@@ -1,8 +1,8 @@
-using System.Collections.Immutable;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription(DateTime? expiresAt, bool active)
+public class Subscription(DateTime? expiresAt, bool active) : Entity
 {
     private  readonly IList<Payment> _payments = [];
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;

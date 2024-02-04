@@ -1,6 +1,8 @@
+using PaymentContext.Shared.Entities;
+
 namespace PaymentContext.Domain.Entities;
 
-public abstract class Payment(decimal total, decimal totalPaid, string payer, string document) {
+public abstract class Payment(decimal total, decimal totalPaid, string payer, string document) : Entity {
     public string Number { get; private set; } = Guid.NewGuid().ToString().Replace("-", string.Empty)[..10];
     public DateTime PaidAt { get; private set; } = DateTime.UtcNow;
     public DateTime ExpiresAt { get; private set; } = DateTime.UtcNow;
