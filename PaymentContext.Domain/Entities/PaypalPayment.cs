@@ -1,9 +1,17 @@
+using Flunt.Notifications;
+using Flunt.Validations;
 using PaymentContext.Domain.ValueObjects;
 
 namespace PaymentContext.Domain.Entities;
 
-public class PaypalPayment(string email, decimal total, decimal totalPaid, string payer, 
-    Document document) : Payment(total, totalPaid, payer, document) {
-    public string Email { get; set; } = email;
-    public string TransactionCode { get; set; } = null!;
+public class PaypalPayment : Payment {
+    public Email Email { get; private set; }
+    public string TransactionCode { get; private set; }
+
+    public PaypalPayment(Email email, decimal total, decimal totalPaid, Name payer, 
+        Document document) : base(total, totalPaid, payer, document) {
+            Email = email;
+            
+            AddNotifications(Email);
+    }
 }
