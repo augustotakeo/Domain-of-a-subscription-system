@@ -17,17 +17,12 @@ public class Address : ValueObject {
 
         AddNotifications(new Contract<Notification>()
             .Requires()
-            .IsLowerOrEqualsThan(street, 200, "Street", "Street should have no more than 200 characters")
-            .IsGreaterOrEqualsThan(street, 3, "Street", "Street should have at least 3 characters")
-            .IsLowerOrEqualsThan(neighborhood, 200, "Neighborhood", "Neighborhood should have no more than 200 characters")
-            .IsGreaterOrEqualsThan(neighborhood, 3, "Neighborhood", "Neighborhood should have more than 3 characters")
-            .AreEquals(ZipCode, 8, "Zip Code", "Zip Code should have 8 characters")
-            .IsLowerOrEqualsThan(city, 200, "City", "City should have no more than 200 characters")
-            .IsGreaterOrEqualsThan(city, 3, "City", "City should have at least 3 characters")
-            .IsLowerOrEqualsThan(state, 200, "State", "State should have no more than 200 characters")
-            .IsGreaterOrEqualsThan(state, 3, "State", "State should have at least 3 characters")
-            .IsLowerOrEqualsThan(country, 200, "Country", "Country should have no more than 200 characters")
-            .IsGreaterOrEqualsThan(country, 3, "Country", "Country should have at least 3 characters")
+            .IsBetween(street.Length, 3, 200, "Address.Street", "Street should have between 3 and 200 characters")
+            .IsBetween(street.Length, 3, 200, "Address.Number", "Number should have between 3 and 200 characters")
+            .IsBetween(street.Length, 3, 200, "Address.Neighborhood", "Neighborhood should have between 3 and 200 characters")
+            .IsBetween(street.Length, 3, 200, "Address.ZipCode", "ZipCode should have between 3 and 200 characters")
+            .IsBetween(street.Length, 3, 200, "Address.City", "City should have between 3 and 200 characters")
+            .IsBetween(street.Length, 3, 200, "Address.Country", "Country should have between 3 and 200 characters")
             .Matches(Number, "^[0-9]", "Number")
         );
     }
