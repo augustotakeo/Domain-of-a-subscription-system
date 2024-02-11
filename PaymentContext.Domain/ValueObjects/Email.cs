@@ -10,8 +10,8 @@ public class Email : ValueObject {
 
         AddNotifications(new Contract<Notification>()
             .Requires()
-            .IsEmail(address, "Email.Address"));
+            .IsEmail(address, "Email.Address", "Invalid email address"));
     }
-    
+
     public string  Address { get; private set; }
 }

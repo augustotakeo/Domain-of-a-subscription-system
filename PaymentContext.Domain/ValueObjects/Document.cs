@@ -12,7 +12,7 @@ public class Document : ValueObject {
 
         AddNotifications(new Contract<Notification>()
             .Requires()
-            .IsTrue(Valid(), "Documente.Number"));
+            .IsTrue(Valid(), "Documente.Number", "Invalid should have 11 or 14 digits"));
     }
     public string Number { get; private set; }
     public EDocumentType Type { get; private set; }
