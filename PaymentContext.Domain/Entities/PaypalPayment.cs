@@ -8,11 +8,8 @@ public class PaypalPayment : Payment {
     public Email Email { get; private set; }
     public string? TransactionCode { get; private set; }
 
-    public PaypalPayment(Email email, decimal total, decimal totalPaid, Name payer, 
-        Document document) : base(total, totalPaid, payer, document) {
-            Email = email;
-
-            AddNotifications(Email);
+    public PaypalPayment(Email email, decimal total, Name payer, Document document) : base(total, payer, document) {
+        AddNotifications(Email = email);
     }
 
     public void UpdateTransactionCode(string transactionCode) {
