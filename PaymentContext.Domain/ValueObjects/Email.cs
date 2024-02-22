@@ -5,6 +5,8 @@ using PaymentContext.Shared.ValueObjects;
 namespace PaymentContext.Domain.ValueObjects;
 
 public class Email : ValueObject {
+    public string  Address { get; private set; }
+    
     public Email(string address) {
         Address = address;
 
@@ -12,6 +14,4 @@ public class Email : ValueObject {
             .Requires()
             .IsEmail(address, "Email.Address", "Invalid email address"));
     }
-
-    public string  Address { get; private set; }
 }

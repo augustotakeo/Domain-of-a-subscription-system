@@ -5,6 +5,10 @@ using PaymentContext.Shared.ValueObjects;
 namespace PaymentContext.Domain.ValueObjects;
 
 public class Name : ValueObject {
+
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+
     public Name(string firstName, string lastName) {
         FirstName = firstName;
         LastName = lastName;
@@ -14,6 +18,6 @@ public class Name : ValueObject {
             .IsBetween(LastName.Length, 3, 200, "Name.LastName", "Last name should be between 3 and 200 characters"));
     }
 
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
+    public override string ToString()
+        => $"{FirstName} {LastName}";
 }

@@ -6,6 +6,9 @@ using PaymentContext.Shared.ValueObjects;
 namespace PaymentContext.Domain.ValueObjects;
 
 public class Document : ValueObject {
+    public string Number { get; private set; }
+    public EDocumentType Type { get; private set; }
+    
     public Document(string number, EDocumentType type) {
         Number = number;
         Type = type;
@@ -14,8 +17,6 @@ public class Document : ValueObject {
             .Requires()
             .IsTrue(Valid(), "Documente.Number", "Invalid should have 11 or 14 digits"));
     }
-    public string Number { get; private set; }
-    public EDocumentType Type { get; private set; }
 
     private bool Valid() {
         if(string.IsNullOrEmpty(Number))
