@@ -14,7 +14,8 @@ public class CreateCreditCardSubscriptionCommand : ICommand {
     public string PayerLastName { get; set; } = null!;
     public string PayerDocument { get; set; } = null!;
     public EDocumentType PayerDocumentType { get; set; }
-    public string CreditCardNumer { get; private set; } = null!;
-    public string CreditCardHolderFirstName { get; private set; } = null!;
-    public string CreditCardHolderLastName { get; private set; } = null!;
+    public string CreditCardNumer { get; set; } = null!;
+    public ECreditCardBrand CreditCardBrand { get; set; }
+    public string CreditCardHolderFirstName { get; set; } = null!;
+    public string CreditCardHolderLastName { get; set; } = null!;
 }

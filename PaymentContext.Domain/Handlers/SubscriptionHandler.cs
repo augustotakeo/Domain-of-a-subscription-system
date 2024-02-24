@@ -9,23 +9,19 @@ using PaymentContext.Shared.Handlers;
 
 namespace PaymentContext.Domain.Handlers;
 
-public class SubscriptionHandler :
+public class SubscriptionHandler(IStudentRepository studentRepository, IEmailService emailService) :
     Notifiable<Notification>,
     IHandler<CreateCreditCardSubscriptionCommand>,
     IHandler<CreatePayPalSubscriptionCommand>
 {
-    private readonly IStudentRepository _studentRepository;
-    private readonly IEmailService _emailService;
-
-    public SubscriptionHandler(IStudentRepository studentRepository, IEmailService emailService) {
-        _studentRepository = studentRepository;
-        _emailService = emailService;
-    }
+    private readonly IStudentRepository _studentRepository = studentRepository;
+    private readonly IEmailService _emailService = emailService;
 
     public async Task<ICommandResult> Handle(CreateCreditCardSubscriptionCommand command)
     {
         var payment = new CreditCardPayment(
             command.CreditCardNumer,
+            command.CreditCardBrand,
             new Name(command.CreditCardHolderFirstName, command.CreditCardHolderLastName),
             command.PaymentTotal,
             new Name(command.PayerFirstName, command.PayerLastName),
@@ -43,14 +39,14 @@ public class SubscriptionHandler :
 
         AddNotifications(student);
 
-        if (!student.IsValid)
-            return CommandResult.New(false, "Não foi possível realizar assinatura");
-
         if(await _studentRepository.EmailExists(student.Email))
             AddNotification("Email", "Email já está em uso.");
 
         if(await _studentRepository.DocumentExists(student.Document))
             AddNotification("CPF", "CPF já está em uso");
+
+        if (!IsValid)
+            return CommandResult.New(false, "Não foi possível realizar assinatura");
 
         await _studentRepository.CreateStudent(student);
 
@@ -79,14 +75,14 @@ public class SubscriptionHandler :
 
         AddNotifications(student);
 
-        if (!student.IsValid)
-            return CommandResult.New(false, "Não foi possível realizar assinatura");
-
         if(await _studentRepository.EmailExists(student.Email))
             AddNotification("Email", "Email já está em uso.");
 
         if(await _studentRepository.DocumentExists(student.Document))
             AddNotification("CPF", "CPF já está em uso");
+
+        if(!IsValid)
+            return CommandResult.New(false, "Não foi possível realizar assinatura");
 
         await _studentRepository.CreateStudent(student);
 

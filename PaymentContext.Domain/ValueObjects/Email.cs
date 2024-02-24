@@ -14,4 +14,18 @@ public class Email : ValueObject {
             .Requires()
             .IsEmail(address, "Email.Address", "Invalid email address"));
     }
+
+    public override bool Equals(object? obj)
+    {
+        if(obj is not Email)
+            return false;
+
+        var email = (Email)obj;
+        return email.Address == Address;
+    }
+
+    public override int GetHashCode()
+    {
+        return Address.GetHashCode();
+    }
 }

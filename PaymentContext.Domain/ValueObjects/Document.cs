@@ -33,4 +33,20 @@ public class Document : ValueObject {
 
         return false;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if(obj is not Document)
+            return false;
+
+        var document = (Document)obj;
+
+        return document.Number == Number &&
+               document.Type == Type;
+    }
+
+    public override int GetHashCode()
+    {
+        return (Number, Type).GetHashCode();
+    }
 }
