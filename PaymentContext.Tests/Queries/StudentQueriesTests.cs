@@ -7,7 +7,7 @@ namespace PaymentContext.Tests.Queries;
 public class StudentQueriesTests {
 
     private IList<Student> _students;
-
+ 
     public StudentQueriesTests() {
         _students = [
             new(new Name("Arnaldo", "Junior"), 
